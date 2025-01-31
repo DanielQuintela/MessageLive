@@ -1,0 +1,15 @@
+{
+  "name": "messagelive",
+  "version": "1.0.0",
+  "description": "A projec developed to send and recive message from strangers in real time",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Quintela Lima Correia Borges",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
