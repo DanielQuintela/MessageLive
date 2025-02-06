@@ -23,10 +23,12 @@ io.on("connection", (socket: Socket) => {
     console.log("Novo usuário conectado:", socket.id);
   
     // Evento para quando um usuário entra no chat
-    socket.on("join", (username: string) => {
+    socket.on("join", (username: string) => {     
       users[socket.id] = username;
       io.emit("userList", Object.values(users)); // Atualiza lista de usuários online
       io.emit("message", { user: "Sistema", text: `${username} entrou no chat.` });
+
+    socket.emit("setUser", username);
     });
   
     // Evento para quando uma mensagem é enviada
@@ -36,7 +38,9 @@ io.on("connection", (socket: Socket) => {
     });
   
     // Evento para quando um usuário desconecta
-    socket.on("disconnect", () => {
+    socket.on("logout", () => {
+      console.log(`${socket.id}, Saiu!`);
+      
       const username = users[socket.id];
       delete users[socket.id];
       io.emit("userList", Object.values(users));
