@@ -11,6 +11,14 @@ export class UsersRepository {
         })
     };
 
+    async findUserByEmail(email: string){
+        return await prismaClient.user.findUnique({
+            where: {
+                email: email
+            }
+        })
+    }
+
     async createUser(data: UserRequest){
 
         return await prismaClient.user.create({
