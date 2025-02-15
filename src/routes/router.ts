@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { CreateRoomController } from "../application/controllers/createRoom.controller";
 import { AuthController } from "../application/controllers/auth.controller";
 import { CreateUserController } from "../application/controllers/createUser.controller";
+import authMiddleware from "../middleware/authMiddleware";
 
 const router = Router();
 
@@ -9,7 +10,7 @@ router.get('/', (req: Request, res: Response) => {
     res.send("Olá, se está vendo isso então o servidor está rodando!");
 });
 
-router.post('/createRoom', (req: Request, res: Response) => {
+router.post('/createRoom', authMiddleware, (req: Request, res: Response) => {
     new CreateRoomController().handle(req, res);
 });
 
