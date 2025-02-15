@@ -8,7 +8,7 @@ export class RoomsRepository {
                 name_room: name,
             }
         })
-    }
+    };
 
     async createRoom(data: RoomCreation){
         
@@ -18,7 +18,7 @@ export class RoomsRepository {
                 creator:    data.creator
             }
         })
-    }
+    };
 
     async deleteRoom(roomId: string){
         await prismaClient.room.delete({
@@ -28,7 +28,7 @@ export class RoomsRepository {
         })
 
         return 'Deleted'
-    }
+    };
 
 
 }
