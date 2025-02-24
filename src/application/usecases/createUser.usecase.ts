@@ -11,6 +11,10 @@ export class CreateUserUsecase{
     };
 
     async execute(data: UserRequest){
+        console.log('Criando usuário: ', data.email);
+        const user = await this.userRepository.findUserByEmail(data.email);
+        if(user) throw Error('Usuário já cadastrado!');
+        
         return await this.userRepository.createUser(data)
     }
 }
