@@ -1,6 +1,6 @@
 import { AuthRequest } from "../../@types/auth";
+import { comparePassword } from "../../services/encryptedService";
 import { UsersRepository } from "../repository/userRepository";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export class AuthUsecase {
@@ -15,7 +15,7 @@ export class AuthUsecase {
         const user = await this.userRepository.findUserByEmail(email);
         if(!user) throw new Error('Usuário não encontrado');
         
-        const passwordMatch =  await bcrypt.compare(password, user.password);
+        const passwordMatch =  await comparePassword(password, user.password);
         if (!passwordMatch) throw new Error("Senha incorreta");
 
         const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET!, { expiresIn: "4h" });

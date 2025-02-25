@@ -1,6 +1,6 @@
 import { UserRequest } from "../../@types/user";
 import { UsersRepository } from "../repository/userRepository";
-
+import { encryptPassword } from "../../services/encryptedService"
 
 export class CreateUserUsecase{
 
@@ -15,6 +15,8 @@ export class CreateUserUsecase{
         const user = await this.userRepository.findUserByEmail(data.email);
         if(user) throw Error('Usuário já cadastrado!');
         
-        return await this.userRepository.createUser(data)
+        const hash = encryptPassword(data.password)
+
+        return await this.userRepository.createUser({email:data.email, password: hash, name:data.name})
     }
 }
