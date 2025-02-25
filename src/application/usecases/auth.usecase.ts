@@ -19,8 +19,8 @@ export class AuthUsecase {
         if (!passwordMatch) throw new Error("Senha incorreta");
 
         const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET!, { expiresIn: "4h" });
-
-        return token
+        const userName = user.name
+        return {token, userName}
     }
 
 }
